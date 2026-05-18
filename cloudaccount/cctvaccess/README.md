@@ -1,2 +1,0 @@
-# cctvaccess
-CCTV access website
