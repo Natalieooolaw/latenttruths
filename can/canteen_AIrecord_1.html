@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoBios Terminal - Log #C-882</title>
+    <style>
+        :root {
+            --bg-color: #1A0B22; 
+            --terminal-bg: #0D0512;
+            --text-color: #d1d1d1;
+            --accent-color: #00f2ff; 
+            --user-box: #3d2b4d;
+            --ai-box: #1E0F28;
+            --border-color: #4a345e;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .terminal-container {
+            width: 95%;
+            max-width: 800px;
+            height: 80vh;
+            background-color: var(--terminal-bg);
+            border: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .info-bar {
+            background-color: var(--border-color);
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .chat-area {
+            padding: 25px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .msg-wrapper {
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* AI 靠左 */
+        .ai-wrapper {
+            align-self: flex-start;
+        }
+
+        /* 用家 靠右 */
+        .user-wrapper {
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            margin-bottom: 5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .user-label { color: #b388ff; }
+        .ai-label { color: var(--accent-color); }
+
+        .bubble {
+            padding: 12px 18px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .user-bubble {
+            background-color: var(--user-box);
+            border-right: 4px solid #b388ff;
+            text-align: left;
+        }
+
+        .ai-bubble {
+            background-color: var(--ai-box);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .footer {
+            padding: 10px;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #555;
+            border-top: 1px solid #222;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 2px;
+            background-color: var(--accent-color);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="terminal-container">
+    <div class="info-bar">
+        <span>DATE: 2099-12-31 // 10:30 AM</span>
+        <span>LOCATION: CANTEEN_PUBLIC_TERMINAL_04</span>
+    </div>
+    
+    <div class="chat-area">
+        <!-- User -->
+        <div class="msg-wrapper user-wrapper">
+            <span class="label user-label">Guest_User_01</span>
+            <div class="bubble user-bubble">
+                咁嗰啲兇殺罪片入面，啲人落藥就令人心臟病發死，多數係落咗咩？
+            </div>
+        </div>
+
+        <!-- AI -->
+        <div class="msg-wrapper ai-wrapper">
+            <span class="label ai-label">MUSES_AI_ENGINE</span>
+            <div class="bubble ai-bubble">
+                影視作品常見的「偽裝心臟病」藥物包括：
+                <ul>
+                    <li><span class="highlight">高濃度氯化鉀：</span>導致電解質失衡令心臟驟停。</li>
+                    <li><span class="highlight">地高辛 (Digoxin)：</span>強心劑過量導致嚴重死律不正。</li>
+                    <li><span class="highlight">琥珀膽鹼：</span>肌肉鬆弛劑導致呼吸停止。</li>
+                    <li><span class="highlight">植物萃取毒素：</span>例如「<span class="highlight">幽影鈴蘭 (Shadow Lily)</span>」提取物。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- User -->
+        <div class="msg-wrapper user-wrapper">
+            <span class="label user-label">Guest_User_01</span>
+            <div class="bubble user-bubble">
+                點提喺植物萃取毒素？同埋要幾耐毒發？
+            </div>
+        </div>
+
+        <!-- AI -->
+        <div class="msg-wrapper ai-wrapper">
+            <span class="label ai-label">MUSES_AI_ENGINE</span>
+            <div class="bubble ai-bubble">
+		<strong>[萃取所需溶液]</strong>
+                <ul>
+                    <li>乙醇</li>
+                    <li>實驗室酸鹼</li>
+                <strong>[萃取程序]</strong>
+                <ul>
+                    <li><strong>浸泡：</strong>切碎組織浸泡於乙醇。</li>
+                    <li><strong>精煉：</strong>實驗室酸鹼萃取分離結晶。</li>
+                </ul>
+                <strong>[毒發時間]</strong>
+                <ul>
+                    <li><strong>口服：</strong>5 小時引發心室顫動。</li>
+                    <li><strong>注射：</strong>5-15 分鐘引發心室顫動。</li>
+                </ul>
+                <div style="margin-top: 10px; font-size: 0.8rem; color: #888;">
+                    * 警告：此查詢已記錄在案。 <span class="cursor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        NEOBIOS ENCRYPTED DATA LOG // UNAUTHORIZED ACCESS PROHIBITED
+    </div>
+</div>
+
+</body>
+</html>
