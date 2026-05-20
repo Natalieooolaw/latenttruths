@@ -10,15 +10,14 @@
       --max-width: 420px;
       --page-padding: 16px;
       --topbar-height: 56px;
-      --navy-dark: #0f1a4a;
-      --navy-light: #f5f8ff;
+      --primary-color: #0f1a4a;
     }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #ffffff;
-      color: var(--navy-dark);
+      color: var(--primary-color);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -44,7 +43,12 @@
       align-items: center;
       gap: 10px;
       font-weight: 700;
-      color: var(--navy-dark);
+      color: var(--primary-color);
+      text-decoration: none; /* 取消超連結底線 */
+    }
+
+    /* 當登入後，讓 Logo 變成可以點擊的按鈕（維持原本外觀） */
+    .logo.clickable {
       cursor: pointer;
     }
 
@@ -67,9 +71,11 @@
       margin: 0 auto;
       padding: calc(var(--topbar-height) + var(--page-padding)) var(--page-padding) var(--page-padding);
       box-sizing: border-box;
+      text-align: center;
+      display: none; /* 預設全部隱藏，由 JS 控制顯示 */
     }
 
-    /* Center the login box */
+    /* 初始顯示登入頁 */
     #loginPage {
       display: flex;
       align-items: center;
@@ -80,16 +86,11 @@
     }
 
     .box {
-      background: var(--navy-light);
+      background: #f5f8ff;
       padding: 20px;
       border-radius: 14px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
       text-align: left;
-    }
-
-    h1, p {
-      text-align: left;
-      margin-top: 0;
     }
 
     .password-row {
@@ -114,16 +115,21 @@
       padding: 0;
       height: 100%;
       cursor: pointer;
-      color: var(--navy-dark);
+      color: var(--primary-color);
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .password-toggle:hover {
+      background: transparent;
     }
 
     .password-reminder {
       margin-top: 8px;
       font-size: 13px;
       color: #6b7280;
+      text-align: left;
     }
 
     input {
@@ -142,7 +148,7 @@
       margin-top: 12px;
       border: none;
       border-radius: 10px;
-      background: var(--navy-dark);
+      background: var(--primary-color);
       color: #ffffff;
       font-size: 16px;
       font-weight: bold;
@@ -159,104 +165,75 @@
       display: none;
     }
 
-    /* Cloud Sections (Hidden by default) */
-    #cloudMainPage, #cloudFolderPage {
-      display: none;
-    }
-
-    .page-title {
-      margin: 10px 0 4px 0;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--navy-dark);
-    }
-
-    .page-subtitle {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 24px;
-    }
-
-    /* Folder UI Style */
-    .folder-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .folder-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--navy-light);
-      padding: 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .folder-item:hover {
-      background: #e6eeff;
-    }
-
-    .folder-icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .folder-info {
-      text-align: left;
-    }
-
-    .folder-name {
-      font-weight: 600;
-      font-size: 16px;
-      color: var(--navy-dark);
-    }
-
-    .folder-meta {
-      font-size: 12px;
-      color: #8892b0;
-      margin-top: 2px;
-    }
-
-    /* Image view style */
-    .photo-container {
-      margin-top: 16px;
-    }
-
+    /* Cloud Page (原本的相片同字) */
     .photo {
       width: 100%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 6px;
+      margin: 8px 0 0 0;
       display: block;
       object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .caption {
-      margin-top: 14px;
-      font-size: 14px;
+      margin-top: 10px;
+      font-size: 15px;
       color: #3b4f8a;
       text-align: left;
-      line-height: 1.5;
     }
 
-    /* Back Button */
-    .back-btn {
-      display: inline-flex;
+    .page-title {
+      margin: 0 0 16px 0;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: left;
+      color: var(--primary-color);
+    }
+
+    /* 偽裝主頁與備份選單樣式 */
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .menu-item {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      color: #3b4f8a;
-      font-size: 14px;
-      cursor: pointer;
-      margin-bottom: 16px;
+      padding: 16px;
+      background: #f5f8ff;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--primary-color);
       font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: 1px solid rgba(15,26,74,0.05);
     }
 
+    .menu-item:hover {
+      background: #eaf0ff;
+    }
+
+    .menu-item .icon-placeholder {
+      margin-right: 12px;
+      font-size: 20px;
+    }
+
+    .menu-item .details {
+      flex: 1;
+    }
+
+    .menu-item .sub-text {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    /* Smaller screens tweaks */
     @media (max-width: 420px) {
       .box { padding: 16px; border-radius: 12px; }
       .brand { display: none; }
@@ -268,14 +245,15 @@
 
   <!-- Top menu bar with cloud logo -->
   <header class="topbar">
-    <div class="logo" onclick="goBackToMain()">
+    <!-- 加入 id="topbarLogo" 方便 JS 切換點擊事件，預設不跳轉 -->
+    <div id="topbarLogo" class="logo" onclick="goToDashboard()">
       <img src="image/cloud.png" alt="Cloud" class="cloud-logo" />
-      <span class="brand">Cloud Drive</span>
+      <span class="brand">Cloud</span>
     </div>
   </header>
 
-  <!-- 1. Landing Page (Login) -->
-  <div id="loginPage" class="page">
+  <!-- 1. Landing Page (密碼登入) -->
+  <div id="loginPage" class="page" style="display: flex;">
     <div class="box">
       <h1>你好，鄭凱峯</h1>
       <p>輸入密碼以存取雲端儲存中的受保護檔案。</p>
@@ -295,73 +273,54 @@
     </div>
   </div>
 
+  <!-- 2. Cloud Page (原本的相片與文字頁面) -->
+  <div id="cloudPage" class="page">
+    <h1 class="page-title">雲端檔案</h1>
+    <img src="image/stealingcat.png" alt="Cloud evidence photo" class="photo" />
+    <div class="caption">
+      檔案上傳於2098年9月21日，晚上10:47。
+      希望件事唔係我諗嘅咁啦。。。
+    </div>
+  </div>
 
-  <!-- 2. Cloud Main Page (主頁：揀 Folder) -->
-  <div id="cloudMainPage" class="page">
-    <h1 class="page-title">我的雲端</h1>
-    <div class="page-subtitle">根目錄 / 所有檔案</div>
-
-    <div class="folder-list">
-      <!-- 點擊這個資料夾會切換去睇相 -->
-      <div class="folder-item" onclick="openFolder()">
-        <div class="folder-icon">
-          <!-- 這裡用純 SVG 畫一個簡潔的資料夾 icon，不用額外載入相片 -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#3b4f8a" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 5h-8.586L9.414 3.001H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2z" />
-          </svg>
-        </div>
-        <div class="folder-info">
-          <div class="folder-name">news.com backup</div>
-          <div class="folder-meta">修改時間: 2098-09-21 • 1 個項目</div>
+  <!-- 3. Hidden Dashboard (點擊 Icon 後出現的隱藏主頁) -->
+  <div id="dashboardPage" class="page">
+    <h1 class="page-title">系統控制台</h1>
+    
+    <div class="menu-list">
+      <!-- 偽裝選項 A -->
+      <div class="menu-item">
+        <span class="icon-placeholder">⚙️</span>
+        <div class="details">
+          <div>帳戶安全性設定</div>
+          <div class="sub-text">上次檢查時間：2小時前</div>
         </div>
       </div>
 
-      <!-- 額外加多個空的假資料夾，等個雲端望落更真實 -->
-      <div class="folder-item" style="opacity: 0.6; cursor: not-allowed;">
-        <div class="folder-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#a0aec0" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 5h-8.586L9.414 3.001H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2z" />
-          </svg>
+      <!-- 偽裝選項 B -->
+      <div class="menu-item">
+        <span class="icon-placeholder">📊</span>
+        <div class="details">
+          <div>儲存空間分析</div>
+          <div class="sub-text">已使用 45.2 GB / 100 GB</div>
         </div>
-        <div class="folder-info">
-          <div class="folder-name">System Settings</div>
-          <div class="folder-meta">修改時間: 2098-01-15 • 0 個項目</div>
+      </div>
+
+      <!-- 真正的暗道：news.com backup -->
+      <div class="menu-item" onclick="openSecretNews()">
+        <span class="icon-placeholder">🌐</span>
+        <div class="details">
+          <div>news.com backup</div>
+          <div class="sub-text">備份日期：2026-05-20</div>
         </div>
       </div>
     </div>
   </div>
-
-
-  <!-- 3. Cloud Folder Page (資料夾內部：顯示 news.png) -->
-  <div id="cloudFolderPage" class="page">
-    <!-- 返回上一頁的按鈕 -->
-    <div class="back-btn" onclick="goBackToMain()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      返回主頁
-    </div>
-
-    <h1 class="page-title">news.com backup</h1>
-    <div class="page-subtitle">根目錄 / news.com backup /</div>
-
-    <div class="photo-container">
-      <!-- 點入資料夾後，顯示原來的 news.png（這裏路徑直接連到 image/news.png） -->
-      <img src="image/news.png" alt="Cloud evidence photo" class="photo" />
-
-      <div class="caption">
-        <strong>news.png</strong> (2.4 MB)<br>
-        檔案上傳於2098年9月21日，晚上10:47。<br>
-        希望件事唔係我諗嘅咁啦。。。
-      </div>
-    </div>
-  </div>
-
 
   <script>
     const correctPassword = "1005";
     let revealTimeout;
+    let isLoggedIn = false; // 追蹤登入狀態
 
     function setPasswordIcon(isVisible) {
       const toggleButton = document.getElementById('togglePassword');
@@ -399,36 +358,39 @@
       }
     }
 
-    // 1. 驗證密碼成功，進入「雲端主頁」
+    // 檢查登入密碼
     function checkPassword() {
       const input = document.getElementById("passwordInput").value;
       const error = document.getElementById("errorMessage");
 
       if (input === correctPassword) {
+        isLoggedIn = true;
+        // 激活頂部 Logo 變成可點擊狀態
+        document.getElementById("topbarLogo").classList.add("clickable");
+        
+        // 前往原本的相片頁
         document.getElementById("loginPage").style.display = "none";
-        document.getElementById("cloudMainPage").style.display = "block";
-        document.getElementById("cloudFolderPage").style.display = "none";
-        window.scrollTo({top:0, behavior:'smooth'});
+        document.getElementById("cloudPage").style.display = "block";
+        window.scrollTo({top:0,behavior:'smooth'});
       } else {
         error.style.display = "block";
       }
     }
 
-    // 2. 喺主頁點擊 "news.com backup" 資料夾進入內頁
-    function openFolder() {
-      document.getElementById("cloudMainPage").style.display = "none";
-      document.getElementById("cloudFolderPage").style.display = "block";
-      window.scrollTo({top:0, behavior:'smooth'});
+    // 隱藏機制：登入後點擊頂部 Logo 跳轉到隱藏主頁
+    function goToDashboard() {
+      if (!isLoggedIn) return; // 未登入點擊無效
+
+      // 隱藏其他頁面，顯示偽裝主頁
+      document.getElementById("cloudPage").style.style.display = "none";
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("dashboardPage").style.display = "block";
+      window.scrollTo({top:0,behavior:'smooth'});
     }
 
-    // 3. 點擊「返回主頁」或者左上角 Logo 返回主目錄
-    function goBackToMain() {
-      // 確保只喺已經登入嘅情況下，撳 Logo 先有反應
-      if (document.getElementById("loginPage").style.display === "none") {
-        document.getElementById("cloudFolderPage").style.display = "none";
-        document.getElementById("cloudMainPage").style.display = "block";
-        window.scrollTo({top:0, behavior:'smooth'});
-      }
+    // 點擊 news.com backup 打開隱藏的圖片
+    function openSecretNews() {
+      window.open('image/news.png', '_blank');
     }
   </script>
 
