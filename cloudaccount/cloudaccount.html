@@ -10,15 +10,17 @@
       --max-width: 420px;
       --page-padding: 16px;
       --topbar-height: 56px;
+      --navy-dark: #0f1a4a;
+      --navy-light: #f5f8ff;
     }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #ffffff;
-      color: #0f1a4a;
+      color: var(--navy-dark);
       min-height: 100vh;
-      -webkit-font-smoothing:antialiased;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Top menu bar */
@@ -42,14 +44,8 @@
       align-items: center;
       gap: 10px;
       font-weight: 700;
-      color: #0f1a4a;
-    }
-
-    .logo svg {
-      width: 28px;
-      height: 28px;
-      display: block;
-      flex: 0 0 28px;
+      color: var(--navy-dark);
+      cursor: pointer;
     }
 
     .logo img {
@@ -71,10 +67,9 @@
       margin: 0 auto;
       padding: calc(var(--topbar-height) + var(--page-padding)) var(--page-padding) var(--page-padding);
       box-sizing: border-box;
-      text-align: center;
     }
 
-    /* Center the login box on the landing page (accounting for topbar) */
+    /* Center the login box */
     #loginPage {
       display: flex;
       align-items: center;
@@ -82,15 +77,19 @@
       min-height: calc(100vh - var(--topbar-height));
       padding-top: calc(var(--topbar-height) + var(--page-padding));
       padding-bottom: var(--page-padding);
-      box-sizing: border-box;
     }
 
     .box {
-      background: #f5f8ff;
+      background: var(--navy-light);
       padding: 20px;
       border-radius: 14px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
       text-align: left;
+    }
+
+    h1, p {
+      text-align: left;
+      margin-top: 0;
     }
 
     .password-row {
@@ -115,22 +114,16 @@
       padding: 0;
       height: 100%;
       cursor: pointer;
-      color: #0f1a4a;
+      color: var(--navy-dark);
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .password-toggle:hover {
-      color: inherit;
-      background: transparent;
     }
 
     .password-reminder {
       margin-top: 8px;
       font-size: 13px;
       color: #6b7280;
-      text-align: left;
     }
 
     input {
@@ -149,7 +142,7 @@
       margin-top: 12px;
       border: none;
       border-radius: 10px;
-      background: #0f1a4a;
+      background: var(--navy-dark);
       color: #ffffff;
       font-size: 16px;
       font-weight: bold;
@@ -166,36 +159,104 @@
       display: none;
     }
 
-    #cloudPage {
+    /* Cloud Sections (Hidden by default) */
+    #cloudMainPage, #cloudFolderPage {
       display: none;
     }
 
-    /* Image on the cloud page should not be inside a box/container */
+    .page-title {
+      margin: 10px 0 4px 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    /* Folder UI Style */
+    .folder-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .folder-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--navy-light);
+      padding: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .folder-item:hover {
+      background: #e6eeff;
+    }
+
+    .folder-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .folder-info {
+      text-align: left;
+    }
+
+    .folder-name {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--navy-dark);
+    }
+
+    .folder-meta {
+      font-size: 12px;
+      color: #8892b0;
+      margin-top: 2px;
+    }
+
+    /* Image view style */
+    .photo-container {
+      margin-top: 16px;
+    }
+
     .photo {
       width: 100%;
       height: auto;
-      border-radius: 6px;
-      margin: 8px 0 0 0;
+      border-radius: 8px;
       display: block;
       object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .caption {
-      margin-top: 10px;
-      font-size: 15px;
+      margin-top: 14px;
+      font-size: 14px;
       color: #3b4f8a;
       text-align: left;
+      line-height: 1.5;
     }
 
-    .page-title {
-      margin: 0 0 8px 0;
-      font-size: 28px;
-      font-weight: 700;
-      text-align: left;
-      color: #0f1a4a;
+    /* Back Button */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #3b4f8a;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      font-weight: 600;
     }
 
-    /* Smaller screens tweaks */
     @media (max-width: 420px) {
       .box { padding: 16px; border-radius: 12px; }
       .brand { display: none; }
@@ -207,14 +268,13 @@
 
   <!-- Top menu bar with cloud logo -->
   <header class="topbar">
-    <div class="logo">
-      <!-- Cloud logo image -->
+    <div class="logo" onclick="goBackToMain()">
       <img src="image/cloud.png" alt="Cloud" class="cloud-logo" />
-      <span class="brand">Cloud</span>
+      <span class="brand">Cloud Drive</span>
     </div>
   </header>
 
-  <!-- Landing Page -->
+  <!-- 1. Landing Page (Login) -->
   <div id="loginPage" class="page">
     <div class="box">
       <h1>你好，鄭凱峯</h1>
@@ -227,7 +287,6 @@
         </button>
       </div>
       
-      <!-- 密碼提示欄位 -->
       <div class="password-reminder">提示：他的生日 (格式：MMDD)</div>
 
       <button onclick="checkPassword()">登入</button>
@@ -236,19 +295,69 @@
     </div>
   </div>
 
-  <!-- Cloud Page -->
-  <div id="cloudPage" class="page">
-    <!-- Heading without the boxed container -->
-    <h1 class="page-title">雲端檔案</h1>
 
-    <!-- Image is intentionally not inside a boxed frame so it appears without the boxed frame -->
-    <img src="image/stealingcat.png" alt="Cloud evidence photo" class="photo" />
+  <!-- 2. Cloud Main Page (主頁：揀 Folder) -->
+  <div id="cloudMainPage" class="page">
+    <h1 class="page-title">我的雲端</h1>
+    <div class="page-subtitle">根目錄 / 所有檔案</div>
 
-    <div class="caption">
-      檔案上傳於2098年9月21日，晚上10:47。
-      希望件事唔係我諗嘅咁啦。。。
+    <div class="folder-list">
+      <!-- 點擊這個資料夾會切換去睇相 -->
+      <div class="folder-item" onclick="openFolder()">
+        <div class="folder-icon">
+          <!-- 這裡用純 SVG 畫一個簡潔的資料夾 icon，不用額外載入相片 -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#3b4f8a" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 5h-8.586L9.414 3.001H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2z" />
+          </svg>
+        </div>
+        <div class="folder-info">
+          <div class="folder-name">news.com backup</div>
+          <div class="folder-meta">修改時間: 2098-09-21 • 1 個項目</div>
+        </div>
+      </div>
+
+      <!-- 額外加多個空的假資料夾，等個雲端望落更真實 -->
+      <div class="folder-item" style="opacity: 0.6; cursor: not-allowed;">
+        <div class="folder-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#a0aec0" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 5h-8.586L9.414 3.001H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2z" />
+          </svg>
+        </div>
+        <div class="folder-info">
+          <div class="folder-name">System Settings</div>
+          <div class="folder-meta">修改時間: 2098-01-15 • 0 個項目</div>
+        </div>
+      </div>
     </div>
   </div>
+
+
+  <!-- 3. Cloud Folder Page (資料夾內部：顯示 news.png) -->
+  <div id="cloudFolderPage" class="page">
+    <!-- 返回上一頁的按鈕 -->
+    <div class="back-btn" onclick="goBackToMain()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      返回主頁
+    </div>
+
+    <h1 class="page-title">news.com backup</h1>
+    <div class="page-subtitle">根目錄 / news.com backup /</div>
+
+    <div class="photo-container">
+      <!-- 點入資料夾後，顯示原來的 news.png（這裏路徑直接連到 image/news.png） -->
+      <img src="image/news.png" alt="Cloud evidence photo" class="photo" />
+
+      <div class="caption">
+        <strong>news.png</strong> (2.4 MB)<br>
+        檔案上傳於2098年9月21日，晚上10:47。<br>
+        希望件事唔係我諗嘅咁啦。。。
+      </div>
+    </div>
+  </div>
+
 
   <script>
     const correctPassword = "1005";
@@ -290,16 +399,35 @@
       }
     }
 
+    // 1. 驗證密碼成功，進入「雲端主頁」
     function checkPassword() {
       const input = document.getElementById("passwordInput").value;
       const error = document.getElementById("errorMessage");
 
       if (input === correctPassword) {
         document.getElementById("loginPage").style.display = "none";
-        document.getElementById("cloudPage").style.display = "block";
-        window.scrollTo({top:0,behavior:'smooth'});
+        document.getElementById("cloudMainPage").style.display = "block";
+        document.getElementById("cloudFolderPage").style.display = "none";
+        window.scrollTo({top:0, behavior:'smooth'});
       } else {
         error.style.display = "block";
+      }
+    }
+
+    // 2. 喺主頁點擊 "news.com backup" 資料夾進入內頁
+    function openFolder() {
+      document.getElementById("cloudMainPage").style.display = "none";
+      document.getElementById("cloudFolderPage").style.display = "block";
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // 3. 點擊「返回主頁」或者左上角 Logo 返回主目錄
+    function goBackToMain() {
+      // 確保只喺已經登入嘅情況下，撳 Logo 先有反應
+      if (document.getElementById("loginPage").style.display === "none") {
+        document.getElementById("cloudFolderPage").style.display = "none";
+        document.getElementById("cloudMainPage").style.display = "block";
+        window.scrollTo({top:0, behavior:'smooth'});
       }
     }
   </script>
